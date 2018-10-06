@@ -1,144 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<html lang="zh-Hans" dir="ltr">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"></meta>
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.5">
-<title>Spring Framework Overview</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+<meta name="generator" content="Asciidoctor 1.5.5"></meta>
+<title>Spring框架概述</title>
 <style>
-/* https://github.com/bclozel/asciidoctor-stylesheet-factory/tree/spring */
-/* ===================================================================== */
-
-@import url('stylesheets/asciidoctor-spring.css');
-
-/* https://github.com/asciidoctor/asciidoctor/issues/699#issuecomment-321066006 */
-/* ============================================================================ */
-
-@import url('tocbot-3.0.2/tocbot.css');
-
-#tocbot a.toc-link.node-name--H1{ font-style: italic }
-@media screen{
-#tocbot > ul.toc-list{ margin-bottom: 0.5em; margin-left: 0.125em }
-#tocbot ul.sectlevel0, #tocbot a.toc-link.node-name--H1 + ul{
-  padding-left: 0 }
-#tocbot a.toc-link{ height:100% }
-.is-collapsible{ max-height:3000px; overflow:hidden; }
-.is-collapsed{ max-height:0 }
-.is-active-link{ font-weight:700 }
-}
-@media print{
-#tocbot a.toc-link.node-name--H4{ display:none }
-}
-
-</style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-<style>
-/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
-/*pre.CodeRay {background-color:#f7f7f8;}*/
-.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
-.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
-.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
-table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
-table.CodeRay td{vertical-align: top;line-height:1.45}
-table.CodeRay td.line-numbers{text-align:right}
-table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
-table.CodeRay td.code{padding:0 0 0 .5em}
-table.CodeRay td.code>pre{padding:0}
-.CodeRay .debug{color:#fff !important;background:#000080 !important}
-.CodeRay .annotation{color:#007}
-.CodeRay .attribute-name{color:#000080}
-.CodeRay .attribute-value{color:#700}
-.CodeRay .binary{color:#509}
-.CodeRay .comment{color:#998;font-style:italic}
-.CodeRay .char{color:#04d}
-.CodeRay .char .content{color:#04d}
-.CodeRay .char .delimiter{color:#039}
-.CodeRay .class{color:#458;font-weight:bold}
-.CodeRay .complex{color:#a08}
-.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
-.CodeRay .color{color:#099}
-.CodeRay .class-variable{color:#369}
-.CodeRay .decorator{color:#b0b}
-.CodeRay .definition{color:#099}
-.CodeRay .delimiter{color:#000}
-.CodeRay .doc{color:#970}
-.CodeRay .doctype{color:#34b}
-.CodeRay .doc-string{color:#d42}
-.CodeRay .escape{color:#666}
-.CodeRay .entity{color:#800}
-.CodeRay .error{color:#808}
-.CodeRay .exception{color:inherit}
-.CodeRay .filename{color:#099}
-.CodeRay .function{color:#900;font-weight:bold}
-.CodeRay .global-variable{color:#008080}
-.CodeRay .hex{color:#058}
-.CodeRay .integer,.CodeRay .float{color:#099}
-.CodeRay .include{color:#555}
-.CodeRay .inline{color:#000}
-.CodeRay .inline .inline{background:#ccc}
-.CodeRay .inline .inline .inline{background:#bbb}
-.CodeRay .inline .inline-delimiter{color:#d14}
-.CodeRay .inline-delimiter{color:#d14}
-.CodeRay .important{color:#555;font-weight:bold}
-.CodeRay .interpreted{color:#b2b}
-.CodeRay .instance-variable{color:#008080}
-.CodeRay .label{color:#970}
-.CodeRay .local-variable{color:#963}
-.CodeRay .octal{color:#40e}
-.CodeRay .predefined{color:#369}
-.CodeRay .preprocessor{color:#579}
-.CodeRay .pseudo-class{color:#555}
-.CodeRay .directive{font-weight:bold}
-.CodeRay .type{font-weight:bold}
-.CodeRay .predefined-type{color:inherit}
-.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
-.CodeRay .key{color:#808}
-.CodeRay .key .delimiter{color:#606}
-.CodeRay .key .char{color:#80f}
-.CodeRay .value{color:#088}
-.CodeRay .regexp .delimiter{color:#808}
-.CodeRay .regexp .content{color:#808}
-.CodeRay .regexp .modifier{color:#808}
-.CodeRay .regexp .char{color:#d14}
-.CodeRay .regexp .function{color:#404;font-weight:bold}
-.CodeRay .string{color:#d20}
-.CodeRay .string .string .string{background:#ffd0d0}
-.CodeRay .string .content{color:#d14}
-.CodeRay .string .char{color:#d14}
-.CodeRay .string .delimiter{color:#d14}
-.CodeRay .shell{color:#d14}
-.CodeRay .shell .delimiter{color:#d14}
-.CodeRay .symbol{color:#990073}
-.CodeRay .symbol .content{color:#a60}
-.CodeRay .symbol .delimiter{color:#630}
-.CodeRay .tag{color:#008080}
-.CodeRay .tag-special{color:#d70}
-.CodeRay .variable{color:#036}
-.CodeRay .insert{background:#afa}
-.CodeRay .delete{background:#faa}
-.CodeRay .change{color:#aaf;background:#007}
-.CodeRay .head{color:#f8f;background:#505}
-.CodeRay .insert .insert{color:#080}
-.CodeRay .delete .delete{color:#800}
-.CodeRay .change .change{color:#66f}
-.CodeRay .head .head{color:#f4f}
-</style>
+  /* https://github.com/bclozel/asciidoctor-stylesheet-factory/tree/spring */
+  /* ===================================================================== */
+  
+  @import url('stylesheets/asciidoctor-spring.css');
+  
+  /* https://github.com/asciidoctor/asciidoctor/issues/699#issuecomment-321066006 */
+  /* ============================================================================ */
+  
+  @import url('tocbot-3.0.2/tocbot.css');
+  
+  #tocbot a.toc-link.node-name--H1{ font-style: italic }
+  @media screen{
+  #tocbot > ul.toc-list{ margin-bottom: 0.5em; margin-left: 0.125em }
+  #tocbot ul.sectlevel0, #tocbot a.toc-link.node-name--H1 + ul{
+    padding-left: 0 }
+  #tocbot a.toc-link{ height:100% }
+  .is-collapsible{ max-height:3000px; overflow:hidden; }
+  .is-collapsed{ max-height:0 }
+  .is-active-link{ font-weight:700 }
+  }
+  @media print{
+  #tocbot a.toc-link.node-name--H4{ display:none }
+  }
+  
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <style>
+  /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+  /*pre.CodeRay {background-color:#f7f7f8;}*/
+  .CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
+  .CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
+  .CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
+  table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
+  table.CodeRay td{vertical-align: top;line-height:1.45}
+  table.CodeRay td.line-numbers{text-align:right}
+  table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
+  table.CodeRay td.code{padding:0 0 0 .5em}
+  table.CodeRay td.code>pre{padding:0}
+  .CodeRay .debug{color:#fff !important;background:#000080 !important}
+  .CodeRay .annotation{color:#007}
+  .CodeRay .attribute-name{color:#000080}
+  .CodeRay .attribute-value{color:#700}
+  .CodeRay .binary{color:#509}
+  .CodeRay .comment{color:#998;font-style:italic}
+  .CodeRay .char{color:#04d}
+  .CodeRay .char .content{color:#04d}
+  .CodeRay .char .delimiter{color:#039}
+  .CodeRay .class{color:#458;font-weight:bold}
+  .CodeRay .complex{color:#a08}
+  .CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+  .CodeRay .color{color:#099}
+  .CodeRay .class-variable{color:#369}
+  .CodeRay .decorator{color:#b0b}
+  .CodeRay .definition{color:#099}
+  .CodeRay .delimiter{color:#000}
+  .CodeRay .doc{color:#970}
+  .CodeRay .doctype{color:#34b}
+  .CodeRay .doc-string{color:#d42}
+  .CodeRay .escape{color:#666}
+  .CodeRay .entity{color:#800}
+  .CodeRay .error{color:#808}
+  .CodeRay .exception{color:inherit}
+  .CodeRay .filename{color:#099}
+  .CodeRay .function{color:#900;font-weight:bold}
+  .CodeRay .global-variable{color:#008080}
+  .CodeRay .hex{color:#058}
+  .CodeRay .integer,.CodeRay .float{color:#099}
+  .CodeRay .include{color:#555}
+  .CodeRay .inline{color:#000}
+  .CodeRay .inline .inline{background:#ccc}
+  .CodeRay .inline .inline .inline{background:#bbb}
+  .CodeRay .inline .inline-delimiter{color:#d14}
+  .CodeRay .inline-delimiter{color:#d14}
+  .CodeRay .important{color:#555;font-weight:bold}
+  .CodeRay .interpreted{color:#b2b}
+  .CodeRay .instance-variable{color:#008080}
+  .CodeRay .label{color:#970}
+  .CodeRay .local-variable{color:#963}
+  .CodeRay .octal{color:#40e}
+  .CodeRay .predefined{color:#369}
+  .CodeRay .preprocessor{color:#579}
+  .CodeRay .pseudo-class{color:#555}
+  .CodeRay .directive{font-weight:bold}
+  .CodeRay .type{font-weight:bold}
+  .CodeRay .predefined-type{color:inherit}
+  .CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+  .CodeRay .key{color:#808}
+  .CodeRay .key .delimiter{color:#606}
+  .CodeRay .key .char{color:#80f}
+  .CodeRay .value{color:#088}
+  .CodeRay .regexp .delimiter{color:#808}
+  .CodeRay .regexp .content{color:#808}
+  .CodeRay .regexp .modifier{color:#808}
+  .CodeRay .regexp .char{color:#d14}
+  .CodeRay .regexp .function{color:#404;font-weight:bold}
+  .CodeRay .string{color:#d20}
+  .CodeRay .string .string .string{background:#ffd0d0}
+  .CodeRay .string .content{color:#d14}
+  .CodeRay .string .char{color:#d14}
+  .CodeRay .string .delimiter{color:#d14}
+  .CodeRay .shell{color:#d14}
+  .CodeRay .shell .delimiter{color:#d14}
+  .CodeRay .symbol{color:#990073}
+  .CodeRay .symbol .content{color:#a60}
+  .CodeRay .symbol .delimiter{color:#630}
+  .CodeRay .tag{color:#008080}
+  .CodeRay .tag-special{color:#d70}
+  .CodeRay .variable{color:#036}
+  .CodeRay .insert{background:#afa}
+  .CodeRay .delete{background:#faa}
+  .CodeRay .change{color:#aaf;background:#007}
+  .CodeRay .head{color:#f8f;background:#505}
+  .CodeRay .insert .insert{color:#080}
+  .CodeRay .delete .delete{color:#800}
+  .CodeRay .change .change{color:#66f}
+  .CodeRay .head .head{color:#f4f}
+  </style>
 </head>
-<body id="overview" class="book toc2 toc-left">
+<body id="overview" class="book toc2 toc-left" dir="ltr">
 <div id="header">
-<h1>Spring Framework Overview</h1>
+<h1>Spring框架概述</h1>
 <div class="details">
-<span id="revnumber">version 5.1.0.RELEASE</span>
+<span id="revnumber">版本5.1.0。发布</span>
 </div>
 <div id="toc" class="toc2">
-<div id="toctitle">Table of Contents</div>
+<div id="toctitle">目录</div>
 <ul class="sectlevel1">
-<li><a href="#overview-spring">1. What We Mean by "Spring"</a></li>
-<li><a href="#overview-history">2. History of Spring and the Spring Framework</a></li>
-<li><a href="#overview-philosophy">3. Design Philosophy</a></li>
-<li><a href="#overview-feedback">4. Feedback and Contributions</a></li>
-<li><a href="#overview-getting-started">5. Getting Started</a></li>
+<li><a href="#overview-spring">1。我们的意思是“春天”</a></li>
+<li><a href="#overview-history">2。Spring的历史和Spring框架</a></li>
+<li><a href="#overview-philosophy">3。设计理念</a></li>
+<li><a href="#overview-feedback">4。反馈和贡献</a></li>
+<li><a href="#overview-getting-started">5。入门</a></li>
 </ul>
 </div>
 </div>
@@ -146,209 +145,133 @@ table.CodeRay td.code>pre{padding:0}
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Spring makes it easy to create Java enterprise applications. It provides everything you
-need to embrace the Java language in an enterprise environment, with support for Groovy
-and Kotlin as alternative languages on the JVM, and with the flexibility to create many
-kinds of architectures depending on an application&#8217;s needs. As of Spring Framework 5.0,
-Spring requires JDK 8+ (Java SE 8+) and provides out-of-the-box support for JDK 9 already.</p>
+<p>Spring可以轻松创建Java企业应用程序。它提供了在企业环境中使用Java语言所需的一切，支持Groovy和Kotlin作为JVM上的替代语言，并可根据应用程序的需要灵活地创建多种体系结构。从Spring Framework 5.0开始，Spring需要JDK 8+（Java SE 8+），并且已经为JDK 9提供了开箱即用的支持。</p>
 </div>
 <div class="paragraph">
-<p>Spring supports a wide range of application scenarios. In a large enterprise, applications
-often exist for a long time and have to run on a JDK and application server whose upgrade
-cycle is beyond developer control. Others may run as a single jar with the server embedded,
-possibly in a cloud environment. Yet others may be standalone applications (such as batch
-or integration workloads) that do not need a server.</p>
+<p>Spring支持广泛的应用场景。在大型企业中，应用程序通常存在很长时间，并且必须在升级周期超出开发人员控制范围的JDK和应用程序服务器上运行。其他可以作为单个jar运行，其中嵌入了服务器，可能在云环境中。还有一些可能是不需要服务器的独立应用程序（例如批处理或集成工作负载）。</p>
 </div>
 <div class="paragraph">
-<p>Spring is open source. It has a large and active community that provides continuous feedback
-based on a diverse range of real-world use cases. This has helped Spring to successfully
-evolve over a very long time.</p>
+<p>Spring是开源的。它拥有一个庞大而活跃的社区，可根据各种各样的实际用例提供持续的反馈。这有助于Spring在很长一段时间内成功发展。</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="overview-spring"><a class="anchor" href="#overview-spring"></a>1. What We Mean by "Spring"</h2>
+<h2 id="overview-spring"><a class="anchor" href="#overview-spring"></a> 1。我们的意思是“春天”</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The term "Spring" means different things in different contexts. It can be used to refer to
-the Spring Framework project itself, which is where it all started. Over time, other Spring
-projects have been built on top of the Spring Framework. Most often, when people say
-"Spring", they mean the entire family of projects. This reference documentation focuses on
-the foundation: the Spring Framework itself.</p>
+<p>术语“春天”在不同的背景下意味着不同的东西。它可以用来引用Spring Framework项目本身，它就是一切开始的地方。随着时间的推移，其他Spring项目已经构建在Spring Framework之上。大多数情况下，当人们说“春天”时，他们指的是整个项目系列。本参考文档侧重于基础：Spring Framework本身。</p>
 </div>
 <div class="paragraph">
-<p>The Spring Framework is divided into modules. Applications can choose which modules they need.
-At the heart are the modules of the core container, including a configuration model and a
-dependency injection mechanism. Beyond that, the Spring Framework provides foundational
-support for different application architectures, including messaging, transactional data and
-persistence, and web. It also includes the Servlet-based Spring MVC web framework and, in
-parallel, the Spring WebFlux reactive web framework.</p>
+<p>Spring框架分为几个模块。应用程序可以选择所需的模块。核心是核心容器的模块，包括配置模型和依赖注入机制。除此之外，Spring Framework还为不同的应用程序体系结构提供了基础支持，包括消息传递，事务数据和持久性以及Web。它还包括基于Servlet的Spring MVC Web框架，以及Spring WebFlux响应式Web框架。</p>
 </div>
 <div class="paragraph">
-<p>A note about modules: Spring&#8217;s framework jars allow for deployment to JDK 9&#8217;s module path
-("Jigsaw"). For use in Jigsaw-enabled applications, the Spring Framework 5 jars come with
-"Automatic-Module-Name" manifest entries which define stable language-level module names
-("spring.core", "spring.context" etc) independent from jar artifact names (the jars follow
-the same naming pattern with "-" instead of ".", e.g. "spring-core" and "spring-context").
-Of course, Spring&#8217;s framework jars keep working fine on the classpath on both JDK 8 and 9.</p>
+<p>关于模块的说明：Spring的框架jar允许部署到JDK 9的模块路径（“Jigsaw”）。为了在支持Jigsaw的应用程序中使用，Spring Framework 5 jar带有“Automatic-Module-Name”清单条目，它定义了独立于jar工件的稳定语言级模块名称（“spring.core”，“spring.context”等）名称（罐子使用相同的命名模式，而不是“。”，例如“spring-core”和“spring-context”）。当然，Spring的框架jar在JDK 8和9上的类路径上都能正常工作。</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="overview-history"><a class="anchor" href="#overview-history"></a>2. History of Spring and the Spring Framework</h2>
+<h2 id="overview-history"><a class="anchor" href="#overview-history"></a> 2。Spring的历史和Spring框架</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Spring came into being in 2003 as a response to the complexity of the early
-<a href="https://en.wikipedia.org/wiki/Java_Platform,_Enterprise_Edition">J2EE</a> specifications.
-While some consider Java EE and Spring to be in competition, Spring is, in fact, complementary
-to Java EE. The Spring programming model does not embrace the Java EE platform specification;
-rather, it integrates with carefully selected individual specifications from the EE umbrella:</p>
+<p>Spring于2003年成立，是对早期<a href="https://en.wikipedia.org/wiki/Java_Platform,_Enterprise_Edition">J2EE</a>规范复杂性的回应。虽然有些人认为Java EE和Spring处于竞争中，但Spring实际上是对Java EE的补充。 Spring编程模型不包含Java EE平台规范;相反，它集成了EE保护伞中精心挑选的个别规格：</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Servlet API (<a href="https://jcp.org/en/jsr/detail?id=340">JSR 340</a>)</p>
+<p>Servlet API（ <a href="https://jcp.org/en/jsr/detail?id=340">JSR 340</a> ）</p>
 </li>
 <li>
-<p>WebSocket API (<a href="https://www.jcp.org/en/jsr/detail?id=356">JSR 356</a>)</p>
+<p>WebSocket API（ <a href="https://www.jcp.org/en/jsr/detail?id=356">JSR 356</a> ）</p>
 </li>
 <li>
-<p>Concurrency Utilities (<a href="https://www.jcp.org/en/jsr/detail?id=236">JSR 236</a>)</p>
+<p>并发实用程序（ <a href="https://www.jcp.org/en/jsr/detail?id=236">JSR 236</a> ）</p>
 </li>
 <li>
-<p>JSON Binding API (<a href="https://jcp.org/en/jsr/detail?id=367">JSR 367</a>)</p>
+<p>JSON绑定API（ <a href="https://jcp.org/en/jsr/detail?id=367">JSR 367</a> ）</p>
 </li>
 <li>
-<p>Bean Validation (<a href="https://jcp.org/en/jsr/detail?id=303">JSR 303</a>)</p>
+<p>Bean验证（ <a href="https://jcp.org/en/jsr/detail?id=303">JSR 303</a> ）</p>
 </li>
 <li>
-<p>JPA (<a href="https://jcp.org/en/jsr/detail?id=338">JSR 338</a>)</p>
+<p>JPA（ <a href="https://jcp.org/en/jsr/detail?id=338">JSR 338</a> ）</p>
 </li>
 <li>
-<p>JMS (<a href="https://jcp.org/en/jsr/detail?id=914">JSR 914</a>)</p>
+<p>JMS（ <a href="https://jcp.org/en/jsr/detail?id=914">JSR 914</a> ）</p>
 </li>
 <li>
-<p>as well as JTA/JCA setups for transaction coordination, if necessary.</p>
+<p>以及必要时用于事务协调的JTA / JCA设置。</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The Spring Framework also supports the Dependency Injection
-(<a href="https://www.jcp.org/en/jsr/detail?id=330">JSR 330</a>) and Common Annotations
-(<a href="https://jcp.org/en/jsr/detail?id=250">JSR 250</a>) specifications, which application developers
-may choose to use instead of the Spring-specific mechanisms provided by the Spring Framework.</p>
+<p>Spring Framework还支持依赖注入（ <a href="https://www.jcp.org/en/jsr/detail?id=330">JSR 330</a> ）和Common Annotations（ <a href="https://jcp.org/en/jsr/detail?id=250">JSR 250</a> ）规范，应用程序开发人员可以选择使用这些规范，而不是Spring Framework提供的Spring特定机制。</p>
 </div>
 <div class="paragraph">
-<p>As of Spring Framework 5.0, Spring requires the Java EE 7 level (e.g. Servlet 3.1+, JPA 2.1+)
-as a minimum - while at the same time providing out-of-the-box integration with newer APIs
-at the Java EE 8 level (e.g. Servlet 4.0, JSON Binding API) when encountered at runtime.
-This keeps Spring fully compatible with e.g. Tomcat 8 and 9, WebSphere 9, and JBoss EAP 7.</p>
+<p>从Spring Framework 5.0开始，Spring至少需要Java EE 7级别（例如Servlet 3.1 +，JPA 2.1+） - 同时在Java EE 8级别提供与新API的开箱即用集成（例如，Servlet 4.0，JSON绑定API）在运行时遇到。这使Spring与Tomcat 8和9，WebSphere 9和JBoss EAP 7完全兼容。</p>
 </div>
 <div class="paragraph">
-<p>Over time, the role of Java EE in application development has evolved. In the early days of
-Java EE and Spring, applications were created to be deployed to an application server.
-Today, with the help of Spring Boot, applications are created in a devops- and
-cloud-friendly way, with the Servlet container embedded and trivial to change.
-As of Spring Framework 5, a WebFlux application does not even use the Servlet API directly
-and can run on servers (such as Netty) that are not Servlet containers.</p>
+<p>随着时间的推移，Java EE在应用程序开发中的作用也在不断发展。在Java EE和Spring的早期，创建了应用程序以部署到应用程序服务器。今天，在Spring Boot的帮助下，应用程序以devops和云友好的方式创建，Servlet容器嵌入并且变得微不足道。从Spring Framework 5开始，WebFlux应用程序甚至不直接使用Servlet API，并且可以在不是Servlet容器的服务器（例如Netty）上运行。</p>
 </div>
 <div class="paragraph">
-<p>Spring continues to innovate and to evolve. Beyond the Spring Framework, there are other
-projects, such as Spring Boot, Spring Security, Spring Data, Spring Cloud, Spring Batch,
-among others. It’s important to remember that each project has its own source code repository,
-issue tracker, and release cadence. See <a href="https://spring.io/projects">spring.io/projects</a> for
-the complete list of Spring projects.</p>
+<p>Spring继续创新并不断发展。除了Spring Framework之外，还有其他项目，例如Spring Boot，Spring Security，Spring Data，Spring Cloud，Spring Batch等。重要的是要记住每个项目都有自己的源代码存储库，问题跟踪器和发布节奏。有关Spring项目的完整列表，请参见<a href="https://spring.io/projects">spring.io/projects</a> 。</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="overview-philosophy"><a class="anchor" href="#overview-philosophy"></a>3. Design Philosophy</h2>
+<h2 id="overview-philosophy"><a class="anchor" href="#overview-philosophy"></a> 3。设计理念</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When you learn about a framework, it’s important to know not only what it does but what
-principles it follows. Here are the guiding principles of the Spring Framework:</p>
+<p>当您了解框架时，重要的是不仅要知道它的作用，还要了解它遵循的原则。以下是Spring Framework的指导原则：</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Provide choice at every level. Spring lets you defer design decisions as late as possible.
-For example, you can switch persistence providers through configuration without changing
-your code. The same is true for many other infrastructure concerns and integration with
-third-party APIs.</p>
+<p>提供各个层面的选择。Spring允许您尽可能晚地推迟设计决策。例如，您可以通过配置切换持久性提供程序，而无需更改代码。许多其他基础架构问题以及与第三方API的集成也是如此。</p>
 </li>
 <li>
-<p>Accommodate diverse perspectives. Spring embraces flexibility and is not opinionated
-about how things should be done. It supports a wide range of application needs with
-different perspectives.</p>
+<p>适应不同的观点。Spring拥抱灵活性，并不认为应该如何做。它以不同的视角支持广泛的应用需求。</p>
 </li>
 <li>
-<p>Maintain strong backward compatibility. Spring’s evolution has been carefully managed
-to force few breaking changes between versions. Spring supports a carefully chosen range
-of JDK versions and third-party libraries to facilitate maintenance of applications and
-libraries that depend on Spring.</p>
+<p>保持强大的向后兼容性。Spring的演变经过精心设计，可以在版本之间进行一些重大改变。Spring支持精心挑选的JDK版本和第三方库，以便于维护依赖于Spring的应用程序和库。</p>
 </li>
 <li>
-<p>Care about API design. The Spring team puts a lot of thought and time into making APIs
-that are intuitive and that hold up across many versions and many years.</p>
+<p>关心API设计。Spring团队投入了大量的思考和时间来制作直观的API，这些API可以在多个版本和多年中保持不变。</p>
 </li>
 <li>
-<p>Set high standards for code quality. The Spring Framework puts a strong emphasis on
-meaningful, current, and accurate Javadoc. It is one of very few projects that can claim
-clean code structure with  no circular dependencies between packages.</p>
+<p>为代码质量设定高标准。Spring Framework强调有意义，最新且准确的Javadoc。它是极少数项目之一，可以声称干净的代码结构，包之间没有循环依赖。</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="overview-feedback"><a class="anchor" href="#overview-feedback"></a>4. Feedback and Contributions</h2>
+<h2 id="overview-feedback"><a class="anchor" href="#overview-feedback"></a> 4。反馈和贡献</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For how-to questions or diagnosing or debugging issues, we suggest using StackOverflow,
-and we have a <a href="https://spring.io/questions">questions page</a> that lists the suggested tags to use.
-If you&#8217;re fairly certain that there is a problem in the Spring Framework or would like
-to suggest a feature, please use the <a href="https://jira.spring.io/browse/spr">JIRA issue tracker</a>.</p>
+<p>对于操作方法问题或诊断或调试问题，我们建议使用StackOverflow，我们有一个<a href="https://spring.io/questions">问题页面</a>列出了要使用的建议标签。如果您非常确定Spring Framework中存在问题或想要建议功能，请使用<a href="https://jira.spring.io/browse/spr">JIRA问题跟踪器</a> 。</p>
 </div>
 <div class="paragraph">
-<p>If you have a solution in mind or a suggested fix, you can submit a pull request on
-<a href="https://github.com/spring-projects/spring-framework">Github</a>. However, please keep in mind
-that, for all but the most trivial issues, we expect a ticket to be filed in the issue
-tracker, where discussions take place and leave a record for future reference.</p>
+<p>如果您有解决方案或建议的修复，您可以在<a href="https://github.com/spring-projects/spring-framework">Github</a>上提交拉取请求。但是，请记住，除了最微不足道的问题之外，我们希望在问题跟踪器中提交一张票据，进行讨论并留下记录以供将来参考。</p>
 </div>
 <div class="paragraph">
-<p>For more details see the guidelines at the
-<a href="https://github.com/spring-projects/spring-framework/blob/master/CONTRIBUTING.md">CONTRIBUTING</a>,
-top-level project page.</p>
+<p>有关更多详细信息，请参阅“ <a href="https://github.com/spring-projects/spring-framework/blob/master/CONTRIBUTING.md">贡献</a> ”顶级项目页面上的指南。</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="overview-getting-started"><a class="anchor" href="#overview-getting-started"></a>5. Getting Started</h2>
+<h2 id="overview-getting-started"><a class="anchor" href="#overview-getting-started"></a> 5。入门</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If you are just getting started with Spring, you may want to begin using the Spring
-Framework by creating a <a href="http://projects.spring.io/spring-boot/">Spring Boot</a>-based
-application. Spring Boot provides a quick (and opinionated) way to create a
-production-ready Spring-based application. It is based on the Spring Framework, favors
-convention over configuration, and is designed to get you up and running as quickly
-as possible.</p>
+<p>如果您刚刚开始使用Spring，您可能希望通过创建基于<a href="http://projects.spring.io/spring-boot/">Spring Boot</a>的应用程序来开始使用Spring Framework。Spring Boot提供了一种快速（和固执己见）的方式来创建一个生产就绪的基于Spring的应用程序。它基于Spring Framework，支持约定优于配置，旨在帮助您尽快启动和运行。</p>
 </div>
 <div class="paragraph">
-<p>You can use <a href="http://start.spring.io/">start.spring.io</a> to generate a basic project or follow
-one of the <a href="https://spring.io/guides">"Getting Started" guides</a>, such as
-<a href="https://spring.io/guides/gs/rest-service/">Getting Started Building a RESTful Web Service</a>.
-As well as being easier to digest, these guides are very task focused, and most of them
-are based on Spring Boot. They also cover other projects from the Spring portfolio that
-you might want to consider when solving a particular problem.</p>
+<p>您可以使用<a href="http://start.spring.io/">start.spring.io</a>生成基本项目，也可以按照<a href="https://spring.io/guides">“入门”指南之一进行操作</a> ，例如“ <a href="https://spring.io/guides/gs/rest-service/">入门构建RESTful Web服务”</a> 。除了更容易理解之外，这些指南非常注重任务，而且大多数都基于Spring Boot。它们还涵盖了Spring组合中您在解决特定问题时可能需要考虑的其他项目。</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
-<div id="footer-text">
-Version 5.1.0.RELEASE<br>
-Last updated 2018-09-21 06:51:06 UTC
-</div>
+<div id="footer-text">版本5.1.0。发布<br>上次更新时间2018-09-21 06:51:06 UTC</div>
 </div>
 <script src="tocbot-3.0.2/tocbot.js"></script>
 <script>
